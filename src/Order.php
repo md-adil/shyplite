@@ -1,5 +1,7 @@
 <?php
 namespace Adil\Shyplite;
+
+use Adil\Shyplite\Exceptions\InvalidOrderException;
 /**
 * 
 */
@@ -35,7 +37,7 @@ class Order
 	protected function validate($orders) {
 		foreach($orders as $order) {
 			foreach ($order as $key => $value) {
-				$this->validateOrderDetail($key, $value)
+				$this->validateOrderDetail($key, $value);
 			}
 		}
 	}
@@ -44,7 +46,7 @@ class Order
 	{
 		switch ($field) {
 			case 'orderId':
-				# code...
+				if(!$value) throw new InvalidOrderException("Order id cannot be empty");
 				break;
 			case 'orderType':
 				# code...

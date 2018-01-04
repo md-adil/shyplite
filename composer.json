@@ -13,7 +13,7 @@
         }
     ],
     "autoload": {
-        "psr4": {
+        "psr-4": {
             "Adil\\Shyplite\\": "src/"
         }
     }

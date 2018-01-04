@@ -1,5 +1,8 @@
 <?php
 namespace Adil\Shyplite;
+
+use Adil\Shyplite\Exceptions\MissingTokenException;
+use GuzzleHttp\Client;
 /**
 * 
 */
@@ -43,7 +46,7 @@ class Shyplite
 
 	public function authRequest() {
 		if(!$this->token) {
-			throw new MissingTokenException("Token is request to make authenticated request, please set token using '->setToken(\$token)'")
+			throw new MissingTokenException("Token is required to make authenticated request, please set token using '->setToken(\$token)'");
 		}
 		$secret = $this->token;
 		$timestamp = time();

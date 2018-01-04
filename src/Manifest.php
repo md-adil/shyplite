@@ -4,7 +4,7 @@ use GuzzleHttp\Client;
 /**
 * 
 */
-class Manifest
+class Manifest extends Downloadable
 {
 	public $name;
 	public $path;
@@ -16,13 +16,5 @@ class Manifest
 		foreach($response as $key => $val) {
 			$this->{$key} = $val;
 		}
-	}
-
-	public function download($path)
-	{
-		$client = new Client();
-		$client->get($this->path, [
-			'sink' => $path + '/' + $this->name
-		]);
 	}
 }

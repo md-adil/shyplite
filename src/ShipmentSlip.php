@@ -3,7 +3,7 @@ namespace Adil\Shyplite;
 /**
 * 
 */
-class ShipmentSlip
+class ShipmentSlip extends Downloadable
 {
 	public $name;
 	public $path;
@@ -18,11 +18,4 @@ class ShipmentSlip
 		}
 	}
 
-	public function download($path)
-	{
-		$client = new Client();
-		$client->get($this->path, [
-			'sink' => $path + '/' + $this->name
-		]);
-	}
 }
