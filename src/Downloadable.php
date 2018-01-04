@@ -15,7 +15,7 @@ class Downloadable
 	{
 		$client = new Client();
 		$client->get($this->path, [
-			'sink' => $path + '/' + $this->name
+			'sink' => $path . '/' . $this->name
 		]);
 	}
 }
