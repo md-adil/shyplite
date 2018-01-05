@@ -1,16 +1,11 @@
 <?php
-namespace Adil\Shyplite;
-
+namespace Adil\Shyplite\Model;
 use GuzzleHttp\Client;
 /**
 * 
 */
-class Downloadable
+trait Downloadable
 {
-	
-	public $name;
-	public $path;
-	
 	public function download($path)
 	{
 		$client = new Client();
@@ -19,3 +14,4 @@ class Downloadable
 		]);
 	}
 }
+

@@ -1,21 +1,14 @@
 <?php
 namespace Adil\Shyplite\Responses;
 
-class Order {
+class Order extends Model {
 	
 	protected $_error;
-
-	function __construct(array $order, $response)
+	public $id;
+	function __construct(array $attributes, $response)
 	{
-		$this->setFields($order);
+		parent::__construct($attributes);
 		$this->setResponse($response);
-	}
-
-	protected function setFields($order)
-	{
-		foreach($order as $field => $value) {
-			$this->{$field} = $value;
-		}
 	}
 
 	protected function setResponse($response)
@@ -24,7 +17,6 @@ class Order {
 		if(isset($response->success)) {
 			$this->id = $response->success;
 		}
-
 		if(isset($response->error)) {
 			$this->_error = $response->error;
 		}
@@ -38,10 +30,5 @@ class Order {
 	public function getError()
 	{
 		return $this->_error;
-	}
-
-	public function __get($prop)
-	{
-		return null;
 	}
 }

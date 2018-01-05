@@ -1,5 +1,7 @@
 <?php
 namespace Adil\Shyplite;
+
+use Adil\Shyplite\Model\Manifest;
 /**
 * 
 */
@@ -27,7 +29,8 @@ class Shipment
 
 	public function getManifest()
 	{
-		$response = $this->app->authRequest()->get($this->configs['manifest_uri'])
-		return new Manifest(json_decode((string)$response->getBody()));
+		$response = $this->app->authRequest()->get($this->configs['manifest_uri']);
+		return new Manifest(json_decode((string)$response->getBody(), 1));
 	}
 }
+

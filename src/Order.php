@@ -2,7 +2,7 @@
 namespace Adil\Shyplite;
 
 use Adil\Shyplite\Exceptions\InvalidOrderException;
-use Adil\Shyplite\Responses\Order as OrderResponse;
+use Adil\Shyplite\Model\Order as OrderModel;
 /**
 * @author Md Adil
 */
@@ -32,14 +32,14 @@ class Order
 			'json' => $orders
 		]);
 		
-		$responseData = json_decode((string)$response->getBody());
+		$responseData = json_decode((string)$response->getBody(), 1);
 		$responseObject = [];
 		foreach($orders as $key => $order) {
 			$responseElement = null;
 			if(isset($responseData[$key])) {
 				$responseElement = $responseData[$key];
 			}
-			$responseObject[] = new OrderResponse($order, $responseElement);
+			$responseObject[] = new OrderModel($order, $responseElement);
 		}
 		return $responseObject;
 	}
@@ -47,7 +47,6 @@ class Order
 	protected function validate($orders) {
 		if(count($orders) > 25) {
 			throw new InvalidOrderException("It seems order numbers has been exceeded, max 25 orders willbe posted on single request", 1);
-			
 		}
 		foreach($orders as $order) {
 			foreach ($order as $key => $value) {
