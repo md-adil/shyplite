@@ -28,6 +28,11 @@ class Model {
 	{
 		return $this->attributes;
 	}
+
+	public function __toString()
+	{
+		return json_encode($this->attributes);
+	}
 }
 
 
