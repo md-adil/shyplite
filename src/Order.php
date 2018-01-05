@@ -2,8 +2,9 @@
 namespace Adil\Shyplite;
 
 use Adil\Shyplite\Exceptions\InvalidOrderException;
+use Adil\Shyplite\Responses\Order as OrderResponse;
 /**
-* 
+* @author Md Adil
 */
 class Order
 {
@@ -27,14 +28,27 @@ class Order
 		$orders = $orders ?: $this->orders;
 		$this->validate($orders);
 
-		$response = $this->app->authRequest()->put($this->configs['order'], [
+		$response = $this->app->authRequest()->put($this->configs['order_uri'], [
 			'json' => $orders
 		]);
-
-		return json_decode((string)$response->getBody());
+		
+		$responseData = json_decode((string)$response->getBody());
+		$responseObject = [];
+		foreach($orders as $key => $order) {
+			$responseElement = null;
+			if(isset($responseData[$key])) {
+				$responseElement = $responseData[$key];
+			}
+			$responseObject[] = new OrderResponse($order, $responseElement);
+		}
+		return $responseObject;
 	}
 
 	protected function validate($orders) {
+		if(count($orders) > 25) {
+			throw new InvalidOrderException("It seems order numbers has been exceeded, max 25 orders willbe posted on single request", 1);
+			
+		}
 		foreach($orders as $order) {
 			foreach ($order as $key => $value) {
 				$this->validateOrderDetail($key, $value);

@@ -77,16 +77,16 @@ class Shyplite
 
 	public function order()
 	{
-		return new Order($this, $configs);
+		return new Order($this, $this->configs);
 	}
 
 	public function shipment()
 	{
-		return new Shipment($this);
+		return new Shipment($this, $this->configs);
 	}
 
 	public function service()
 	{
-		return new Service($this);
+		return new Service($this, $this->configs);
 	}
 }

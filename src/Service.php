@@ -13,7 +13,7 @@ class Service
 		$this->configs = $configs;
 	}
 
-	public function availablity($source, $destination)
+	public function availability($source, $destination)
 	{
 		$uri = implode('/', [
 			$this->configs['availablity_uri'], $source, $destination
