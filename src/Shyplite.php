@@ -21,6 +21,8 @@ class Shyplite
 		'ordercancel_uri' => 'ordercancel'
 	];
 
+	protected $askToken;
+
 	function __construct(array $configs = [])
 	{
 		$this->configs = array_merge($this->configs, $configs);
@@ -29,6 +31,11 @@ class Shyplite
 	public function setToken($token) 
 	{
 		$this->token = $token;
+	}
+	
+	public function askToken(closure $cb)
+	{
+		$this->askToken = $cb;
 	}
 
 	public function request(array $headers = []) {
@@ -45,6 +52,9 @@ class Shyplite
 	}
 
 	public function authRequest() {
+		if($this->askToken) {
+			$this->token = call_user_func($this->askToken, $this);
+		}
 		if(!$this->token) {
 			throw new MissingTokenException("Token is required to make authenticated request, please set token using '->setToken(\$token)'");
 		}
