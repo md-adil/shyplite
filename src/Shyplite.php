@@ -13,7 +13,7 @@ class Shyplite
 	protected $configs = [
 		'verified_request' => false,
 		'base_uri' => 'https://api.shyplite.com',
-		'order_uri' => 'orders',
+		'order_uri' => 'order',
 		'get_slip_uri' => 'getSlip',
 		'availablity_uri' => 'getserviceability',
 		'track_uri' => 'track',
@@ -29,6 +29,10 @@ class Shyplite
 	public function setToken($token) 
 	{
 		$this->token = $token;
+	}
+	public function getToken() 
+	{
+		return $this->token;
 	}
 
 	public function request(array $headers = []) {

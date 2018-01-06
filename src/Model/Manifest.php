@@ -22,8 +22,8 @@ class Manifest extends Model
 			$this->path = $this->attributes['s3Path'];
 		}
 
-		if(isset($this->attributes['name'])) {
-			$this->name = $this->attributes['name'];
+		if(isset($this->attributes['fileName'])) {
+			$this->name = $this->attributes['fileName'];
 		}
 	}
 }

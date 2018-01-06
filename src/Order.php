@@ -27,9 +27,8 @@ class Order
 	{
 		$orders = $orders ?: $this->orders;
 		$this->validate($orders);
-
 		$response = $this->app->authRequest()->put($this->configs['order_uri'], [
-			'json' => $orders
+			'json' => [ 'orders' => $orders ]
 		]);
 		
 		$responseData = json_decode((string)$response->getBody(), 1);
@@ -122,7 +121,7 @@ class Order
 	public function cancel($orders)
 	{
 		$response = $this->app->authRequest()->post($this->configs['ordercancel_uri'], [
-			'json' => $orders
+			'json' => [ 'orders' => $orders ]
 		]);
 
 		return json_decode((string)$response->getBody());
