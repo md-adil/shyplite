@@ -17,9 +17,13 @@ class Shipment
 		$this->configs = $configs;
 	}
 
-	public function getSlip()
+	public function getSlip($number)
 	{
-		$response = $this->app->authRequest()->get($this->configs['get_slip_uri'] + '/' + $number);
+		// dd($number);
+		$response = $this->app->authRequest()->get($this->configs['get_slip_uri'], [
+			'query' => [ 'orderID' => $number ]
+		]);
+		
 		return new Slip(json_decode((string)$response->getBody(), 1));
 	}
 
@@ -29,9 +33,9 @@ class Shipment
 		return json_decode((string)$response->getBody());
 	}
 
-	public function getManifest()
+	public function getManifest($id)
 	{
-		$response = $this->app->authRequest()->get($this->configs['manifest_uri']);
+		$response = $this->app->authRequest()->get($this->configs['manifest_uri'] . '/' . $id);
 		return new Manifest(json_decode((string)$response->getBody(), 1));
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Adil\Shyplite\Responses;
+namespace Adil\Shyplite\Model;
 
 class Order extends Model {
 	
@@ -14,11 +14,13 @@ class Order extends Model {
 	protected function setResponse($response)
 	{
 		if(!$response) return;
-		if(isset($response->success)) {
-			$this->id = $response->success;
+		
+		if(isset($response['success'])) {
+			$this->id = $response['success'];
 		}
-		if(isset($response->error)) {
-			$this->_error = $response->error;
+
+		if(isset($response['error'])) {
+			$this->_error = $response['error'];
 		}
 	}
 

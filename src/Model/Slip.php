@@ -21,7 +21,12 @@ class Slip extends Model
 			$this->name = $this->attributes['fileName'];
 		}
 		if(isset($this->attributes['s3Path'])) {
-			$this->name = $this->attributes['s3Path'];
+			$path = $this->attributes['s3Path'];
+			if(is_array($path)) {
+				$this->path = $path[0];
+			} else {
+				$this->path = $path;
+			}
 		}
 	}
 }
