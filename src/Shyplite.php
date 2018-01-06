@@ -81,7 +81,7 @@ class Shyplite
 		$username = $username ?: $this->configs['username'];
 		$password = $password ?: $this->configs['password'];
 
-		$response = $this->client()->post('login', [
+		$response = $this->request()->post('login', [
 			'form_params' => [
 				'emailID' => $username,
 				'password' => $password,
