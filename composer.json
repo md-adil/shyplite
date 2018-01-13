@@ -1,7 +1,7 @@
 {
     "name": "md-adil/shyplite",
     "description": "SDK for Shyplite shipment service",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"keywords": ["shipment", "marketplace", "shyplite", "shyplite api"],
     "type": "library",
     "require": {
