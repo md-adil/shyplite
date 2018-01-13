@@ -1,6 +1,8 @@
 {
-    "name": "adil/shyplite",
+    "name": "md-adil/shyplite",
     "description": "SDK for Shyplite shipment service",
+	"version": "1.0.0-dev",
+	"keywords": ["shipment", "marketplace", "shyplite", "shyplite api"],
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^6.3"

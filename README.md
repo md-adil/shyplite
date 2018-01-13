@@ -1,18 +1,38 @@
 # Shyplite PHP And Laravel SDK
 
 
-[shyplite.com](shyplite.com)
+## [shyplite.com](http://shyplite.com/)
 
-## login
+## Installing
+Composer is the best friend to install any php libraries / dependancies with their dependancies.
+If you haven't already installed then follow the link
+[Composer](https://getcomposer.org/)
 
-before making any request you need to set token first.
+Then run following command in your terminal/command prompt where your application is installed.
+
+```composer
+composer require md-adil/shyplite dev-master
+```
+
+
+## Login
+
+Before making any request you need to set token first.
 
 Getting token
 
 ```php
 use Adil\Shyplite\Shyplite;
 
-$shyplite = new Shyplite($configs);
+$congis = [
+    'username'=> '<email-id>',
+    'password' => '<password>',
+    'app_id' => '<app-id>', // Your app's ID
+    'seller_id' => '<seller-id>',   // Your seller ID
+    'key' => '<key>'
+];
+
+$shyplite = new Shyplite($configs); // Constructor takes config array as argument
 $response = $shyplite->login();
 $shyplite->setToken($response->userToken);
 ```
@@ -77,10 +97,46 @@ print_r($avaialable);
 
 ```
 
-## Laravel Integration
+## Configuration
 
+Required:
 ```php
-    // cnofig/app.php
+$config = [
+    'username'=> '<email-id>',
+    'password' => '<password>',
+    'app_id' => '<app-id>', // Your app's ID
+    'seller_id' => '<seller-id>',   // Your seller ID
+    'key' => '<key>'
+];
+```
+
+Default:
+```php
+protected $configs = [
+    'verified_request' => false,
+    'base_uri' => 'https://api.shyplite.com',
+    'order_uri' => 'order',
+    'get_slip_uri' => 'getSlip',
+    'availablity_uri' => 'getserviceability',
+    'track_uri' => 'track',
+    'manifest_uri' => 'getManifestPDF',
+    'ordercancel_uri' => 'ordercancel'
+];
+```
+You can override default configs by providing the key your own config like:
+```php
+$configs = [
+    /* our configs */,
+    'verified_request' => true, // Now you need to add certificate to make verified reques.
+    'order_uri' => 'orders', // If later on shyplite decide to change their uri.
+]
+```
+
+## Laravel Integration
+Let the laravel know about your plugin.
+
+`configs/app.php`
+```php
     return [
 
         // providers section.
@@ -102,8 +158,26 @@ print_r($avaialable);
     // use it in your app
 
 Shyplite::setToken($yourtoken);
-Shyplite:order()->add()->create();
+Shyplite::order()->add()->create();
 ```
+Now add shyplite specific settings in your configs directory.
+
+`configs/shyplite.php`
+```php
+return [
+    'username'=> '<email-id>',
+    'password' => '<password>',
+    'app_id' => '<app-id>', // Your app's ID
+    'seller_id' => '<seller-id>',   // Your seller ID
+    'key' => '<key>'
+];
+
+```
+
+This is unofficial shyplite sdk for php / laravel.
+
+I appreciate your feedback. If you find any issues please don't forget to letme know either mail me or create github issue.
+if you like my efforts please dont forget to give star.
 
 # Thank you :)
 

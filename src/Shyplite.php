@@ -3,6 +3,7 @@ namespace Adil\Shyplite;
 
 use Adil\Shyplite\Exceptions\MissingTokenException;
 use GuzzleHttp\Client;
+use Closure;
 /**
 * 
 */
@@ -21,6 +22,8 @@ class Shyplite
 		'ordercancel_uri' => 'ordercancel'
 	];
 
+	protected $askToken;
+
 	function __construct(array $configs = [])
 	{
 		$this->configs = array_merge($this->configs, $configs);
@@ -30,6 +33,12 @@ class Shyplite
 	{
 		$this->token = $token;
 	}
+	
+	public function askToken(Closure $cb)
+	{
+		$this->askToken = $cb;
+	}
+
 	public function getToken() 
 	{
 		return $this->token;
@@ -49,6 +58,9 @@ class Shyplite
 	}
 
 	public function authRequest() {
+		if($this->askToken) {
+			$this->token = call_user_func($this->askToken, $this);
+		}
 		if(!$this->token) {
 			throw new MissingTokenException("Token is required to make authenticated request, please set token using '->setToken(\$token)'");
 		}
@@ -69,7 +81,7 @@ class Shyplite
 		$username = $username ?: $this->configs['username'];
 		$password = $password ?: $this->configs['password'];
 
-		$response = $this->client()->post('login', [
+		$response = $this->request()->post('login', [
 			'form_params' => [
 				'emailID' => $username,
 				'password' => $password,
