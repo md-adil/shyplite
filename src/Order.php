@@ -59,57 +59,67 @@ class Order
 		switch ($field) {
 			case 'orderId':
 				if(!$value) throw new InvalidOrderException("Order id cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Order id should be numeric");
 				break;
 			case 'orderType':
-				# code...
+				if(!$value) throw new InvalidOrderException("Order type cannot be empty");
 				break;
 			case 'orderDate':
-				# code...
+				if(!$value) throw new InvalidOrderException("Order date cannot be empty");
 				break;
 			case 'modeType':
-				# code...
+				if(!$value) throw new InvalidOrderException("Mode Type cannot be empty");
 				break;
 			case 'customerName':
-				# code...
+				if(!$value) throw new InvalidOrderException("Customer name cannot be empty");
 				break;
 			case 'customerAddress':
-				# code...
+				if(!$value) throw new InvalidOrderException("Customer name cannot be empty");
 				break;
 			case 'customerCity':
-				# code...
+				if(!$value) throw new InvalidOrderException("Customer name cannot be empty");
 				break;
 			case 'customerPinCode':
-				# code...
+				if(!$value) throw new InvalidOrderException("Customer pincode cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Customer pincode should be numeric");
 				break;
 			case 'customerContact':
-				# code...
+				if(!$value) throw new InvalidOrderException("Customer contact cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Customer contact should be numeric");
 				break;
 			case 'totalValue':
-				# code...
+				if(!$value) throw new InvalidOrderException("Total value cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Total value should be numeric");
 				break;
 			case 'categoryName':
-				# code...
+				if(!$value) throw new InvalidOrderException("Category name cannot be empty");
 				break;
 			case 'packageName':
-				# code...
+				if(!$value) throw new InvalidOrderException("Package name cannot be empty");
 				break;
 			case 'quantity':
-				# code...
+				if(!$value) throw new InvalidOrderException("Product quantity cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Product quantity should be numeric");
 				break;
 			case 'packageLength':
-				# code...
+				if(!$value) throw new InvalidOrderException("Package length cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Package length should be numeric");
 				break;
 			case 'packageWidth':
-				# code...
+				if(!$value) throw new InvalidOrderException("Package width cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Package width should be numeric");
 				break;
 			case 'packageHeight':
-				# code...
+				if(!$value) throw new InvalidOrderException("Package height cannot be empty");
+				if(!is_numeric($value)) throw new InvalidOrderException("Package height should be numeric");
 				break;
 			case 'packageWeight':
-				# code...
+				if(!$value) throw new InvalidOrderException("Package weight cannot be empty");
+				f(!is_numeric($value)) throw new InvalidOrderException("Package weight should be numeric");
 				break;
 			case 'sellerAddressId':
-				# code...
+				if(!$value) throw new InvalidOrderException("Seller AddressID cannot be empty");
+				f(!is_numeric($value)) throw new InvalidOrderException("Seller AddressID should be numeric");
 				break;
 			
 			default:
