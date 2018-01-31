@@ -115,11 +115,11 @@ class Order
 				break;
 			case 'packageWeight':
 				if(!$value) throw new InvalidOrderException("Package weight cannot be empty");
-				f(!is_numeric($value)) throw new InvalidOrderException("Package weight should be numeric");
+				if(!is_numeric($value)) throw new InvalidOrderException("Package weight should be numeric");
 				break;
 			case 'sellerAddressId':
 				if(!$value) throw new InvalidOrderException("Seller AddressID cannot be empty");
-				f(!is_numeric($value)) throw new InvalidOrderException("Seller AddressID should be numeric");
+				if(!is_numeric($value)) throw new InvalidOrderException("Seller AddressID should be numeric");
 				break;
 			
 			default:
