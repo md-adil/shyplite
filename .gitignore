@@ -1,2 +1,4 @@
 /vendor
 /config.php
+/index.php
+/raw-curl.php

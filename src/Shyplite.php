@@ -50,7 +50,6 @@ class Shyplite
 			'base_uri' => $this->configs['base_uri'],
 			'headers' => array_merge([
 				"x-appid" =>  $appId,
-		        "x-sellerid" => config('shyplite.seller_id'),
 		        "Content-Type" =>  'application/json',
 			], $headers),
 			'verify' => $this->configs['verified_request']
@@ -64,24 +63,35 @@ class Shyplite
 		if(!$this->token) {
 			throw new MissingTokenException("Token is required to make authenticated request, please set token using '->setToken(\$token)'");
 		}
-		$secret = $this->token;
+		list($authToken, $timestamp) = $this->getAuthToken($this->token);
+		return $this->request([
+			'Authorization' => $authToken,
+		    'x-sellerid' => $this->configs['seller_id'],
+	        'x-timestamp' =>  $timestamp,
+		]);
+	}
+
+	protected function getAuthToken($secret)
+	{
 		$timestamp = time();
 	    $appId = $this->configs['app_id'];
 	    $key = $this->configs['key'];
-	    $sign = "key:". $key ."id:". $appId. ":timestamp:". $timestamp;
+	    $sign = "key:". $key . "id:" . $appId . ":timestamp:". $timestamp;
 		$authToken = rawurlencode(base64_encode(hash_hmac('sha256', $sign, $secret, true)));
-		return $this->request([
-			'Authorization' => $authToken,
-	        "x-timestamp" =>  $timestamp,
-		]);
+		return [ $authToken, $timestamp ];
 	}
 
 	public function login($username = null, $password = null)
 	{
 		$username = $username ?: $this->configs['username'];
 		$password = $password ?: $this->configs['password'];
-
-		$response = $this->request()->post('login', [
+		list($authToken, $timestamp) = $this->getAuthToken($this->configs['secret']);
+		// die($authToken);
+		$response = $this->request([
+			'Authorization' => $authToken,
+	        "x-timestamp" =>  $timestamp,
+	        "Content-Type" =>  'application/x-www-form-urlencoded',
+		])->post('login', [
 			'form_params' => [
 				'emailID' => $username,
 				'password' => $password,
