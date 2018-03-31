@@ -29,7 +29,7 @@ class Shipment
 
 	public function track($number)
 	{
-		$response = $this->app->authRequest()->get($this->configs['track_uri'] + '/' + $number);
+		$response = $this->app->authRequest()->get($this->configs['track_uri'] . '/' . $number);
 		return json_decode((string)$response->getBody());
 	}
 
