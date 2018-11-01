@@ -19,6 +19,7 @@ class Shyplite
 		'availablity_uri' => 'getserviceability',
 		'track_uri' => 'track',
 		'manifest_uri' => 'getManifestPDF',
+		'calculateprice' => 'calculateprice',
 		'ordercancel_uri' => 'ordercancel'
 	];
 
@@ -114,5 +115,10 @@ class Shyplite
 	public function service()
 	{
 		return new Service($this, $this->configs);
+	}
+
+	public function prices()
+	{
+		return new Price($this, $this->configs);
 	}
 }
