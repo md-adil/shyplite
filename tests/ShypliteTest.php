@@ -12,7 +12,7 @@ class ShypliteTest extends TestCase {
 	{
 		$config = require('config.php');
 		$this->shyplite = new Shyplite($config);
-		$this->shyplite->setToken($config['secret']);
+		$this->shyplite->setToken($config['token']);
 	}
 	public function testOrder()
 	{
@@ -33,6 +33,7 @@ class ShypliteTest extends TestCase {
 			"invoiceValue" => 2
 		];
 
-		$this->shyplite->prices()->calculate($data);
+		$res = $this->shyplite->prices()->calculate($data);
+		$this->assertTrue(is_int($res->calculatedPrice));
 	}
 }

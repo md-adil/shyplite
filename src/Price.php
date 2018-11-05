@@ -14,7 +14,7 @@ class Price {
 	public function calculate(array $data)
 	{
 		$uri = $this->configs['calculateprice'];
-		$response = $this->app->authRequest()->post( $uri, $data );
+		$response = $this->app->authRequest()->post( $uri, [ 'json' => $data ] );
 		return json_decode((string)$response->getBody());
 	}
 }
